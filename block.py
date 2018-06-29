@@ -34,23 +34,15 @@ class Proof:
     def verify(self):
         '''Returns whether this proof is valid'''
         # current hash starts with self.tx_hash, reversed
-        current = self.tx_hash[::-1]
         # initialize the current_index to be the index at at base level
-        current_index = self.index
         # Loop through proof hashes
-        for proof_hash in self.proof_hashes:
             # if current_index is odd, proof_hash goes on left
-            if current_index % 2 == 1:
                 # current hash becomes merkle parent of proof_hash and current
-                current = merkle_parent(proof_hash, current)
             # if current_index is even, proof_hash goes on right
-            else:
                 # current hash becomes merkle parent of current and proof_hash
-                current = merkle_parent(current, proof_hash)
             # update the current_index to be integer divide by 2
-            current_index //= 2
         # if final result reversed is equal to merkle_root, return True
-        return current[::-1] == self.merkle_root
+        raise NotImplementedError
 
 
 class Block:
@@ -181,27 +173,6 @@ class Block:
             self.merkle_tree.append(current_level)
             # Make current level Merkle Parent level
             current_level = merkle_parent_level(current_level)
-
-    def verify(self):
-        '''Returns whether this proof is valid'''
-        # current hash starts with self.tx_hash, reversed
-        current = self.tx_hash[::-1]
-        # initialize the current_index to be the index at at base level
-        current_index = self.index
-        # Loop through proof hashes
-        for proof_hash in self.proof_hashes:
-            # if current_index is odd, proof_hash goes on left
-            if current_index % 2 == 1:
-                # current hash becomes merkle parent of proof_hash and current
-                current = merkle_parent(proof_hash, current)
-            # if current_index is even, proof_hash goes on right
-            else:
-                # current hash becomes merkle parent of current and proof_hash
-                current = merkle_parent(current, proof_hash)
-            # update the current_index to be integer divide by 2
-            current_index //= 2
-        # if final result reversed is equal to merkle_root, return True
-        return current[::-1] == self.merkle_root
 
     def create_merkle_proof(self, tx_hash):
         # if self.merkle_tree is empty, go and calculate the merkle tree
