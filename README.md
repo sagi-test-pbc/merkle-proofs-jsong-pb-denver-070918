@@ -52,33 +52,9 @@ proof = Proof(b.merkle_root, tx_hash, index, proof_hashes)
 print(proof)
 ```
 
+### Try it
 
-    ---------------------------------------------------------------------------
-
-    NotImplementedError                       Traceback (most recent call last)
-
-    <ipython-input-10-eef25b709bc5> in <module>()
-         33     tx_hashes=[bytes.fromhex(h) for h in hex_tx_hashes],
-         34 )
-    ---> 35 b.calculate_merkle_tree()
-         36 index = b.tx_hashes.index(tx_hash)
-         37 proof_hashes = []
-
-
-    ~/crypto/pb-exercises-mod/Session7/merkle-proofs-jsong/block.py in calculate_merkle_tree(self)
-        168         return root[::-1] == self.merkle_root
-        169 
-    --> 170     def calculate_merkle_tree(self):
-        171         '''Calculate and store the entire Merkle Tree'''
-        172         # store the result in self.merkle_tree, an array, 0 representing
-
-
-    NotImplementedError: 
-
-
-### Exercise
-
-#### 7.1. Create a Merkle Proof for this transaction
+#### Create a Merkle Proof for this transaction
 Transaction Hash:
 ```
 e8270fb475763bc8d855cfe45ed98060988c1bdcad2ffc8364f783c98999a208
